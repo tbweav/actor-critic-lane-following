@@ -52,3 +52,14 @@ Changes that fixed these issues:
 ## Practical conclusion
 
 The final setup substantially improved lane-wide coverage and reduced endpoint failure modes. The evaluation spread figure gives a more honest view of policy quality than a single rollout.
+
+## AI usage disclosure
+
+AI tools were used as part of this project in the following ways:
+
+- Brainstorming project structure and experimental directions.
+- Coding assistance for implementation details and debugging support.
+- Heavy assistance in `generate_results.py` to speed up writing utility/reporting code.
+- Drafting and formatting support for `README.md` and this report using project details I provided.
+
+I reviewed all generated content, verified behavior in my project context, and can explain the submitted code and results.
