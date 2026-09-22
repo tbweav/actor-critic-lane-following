@@ -1,4 +1,6 @@
 import argparse
+import os
+
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
@@ -185,7 +187,8 @@ def save_eval_spread_plot(path, lane, road_x, road_y, road_psi, road_s, rollouts
     plt.close(fig)
 
 
-def main(policy_path="policy.pt", num_eval=24):
+def main(policy_path="policy.pt", num_eval=24, output_dir="images"):
+    os.makedirs(output_dir, exist_ok=True)
     actor = load_actor(policy_path)
     lane = Lane()
     transition = Transition()
@@ -219,11 +222,10 @@ def main(policy_path="policy.pt", num_eval=24):
 
     summary = summarize_rollouts(eval_rollouts, lane.lane_length())
 
-    save_showcase_plot("policy_showcase.png", lane, road_x, road_y, road_psi, showcase, road_s)
-    save_eval_spread_plot("policy_eval_spread.png", lane, road_x, road_y, road_psi, road_s, eval_rollouts)
+    save_showcase_plot(os.path.join(output_dir, "policy_showcase.png"), lane, road_x, road_y, road_psi, showcase, road_s)
+    save_eval_spread_plot(os.path.join(output_dir, "policy_eval_spread.png"), lane, road_x, road_y, road_psi, road_s, eval_rollouts)
 
-    print("Saved policy_showcase.png")
-    print("Saved policy_eval_spread.png")
+    print(f"Saved policy_showcase.png and policy_eval_spread.png to {output_dir}/")
     print(
         "Eval stats | "
         f"mean completion={summary['mean_completion']:.3f}, "

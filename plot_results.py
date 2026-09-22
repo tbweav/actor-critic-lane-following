@@ -1,8 +1,11 @@
+import os
+
 import torch
 import matplotlib.pyplot as plt
 
 
-def main(logs_path="training_logs.pt"):
+def main(logs_path="training_logs.pt", output_dir="images"):
+    os.makedirs(output_dir, exist_ok=True)
     logs = torch.load(logs_path, weights_only=False)
 
     train_rewards = logs["train_rewards"]
@@ -23,7 +26,7 @@ def main(logs_path="training_logs.pt"):
     plt.legend()
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.savefig("reward_plot.png", dpi=150)
+    plt.savefig(os.path.join(output_dir, "reward_plot.png"), dpi=150)
     plt.close()
 
     # Loss plot: critic loss only
@@ -37,10 +40,10 @@ def main(logs_path="training_logs.pt"):
     plt.legend()
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.savefig("loss_plot.png", dpi=150)
+    plt.savefig(os.path.join(output_dir, "loss_plot.png"), dpi=150)
     plt.close()
 
-    print("Saved reward_plot.png and loss_plot.png")
+    print(f"Saved reward_plot.png and loss_plot.png to {output_dir}/")
 
 
 if __name__ == "__main__":
